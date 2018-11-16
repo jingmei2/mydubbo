@@ -34,14 +34,14 @@ public class RegisterCenterImpl implements IRegisterCenter {
                 curatorFramework.create()
                         .creatingParentsIfNeeded()
                         .withMode(CreateMode.PERSISTENT)
-                        .forPath(servicePath,"0".getBytes());
+                        .forPath(servicePath,"123".getBytes());
             }
             //然后获取节点下的 子节点
             String addressPath = servicePath + "/" + serviceAddress;
             //临时节点
             String reNode = curatorFramework.create()
                     .withMode(CreateMode.EPHEMERAL)
-                    .forPath(addressPath,"0".getBytes());
+                    .forPath(addressPath,"123".getBytes());
             System.out.println("服务注册成功:"+reNode);
         } catch (Exception e){
             e.printStackTrace();
