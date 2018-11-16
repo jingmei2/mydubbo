@@ -18,4 +18,20 @@ dubbo:RPC 的一种
 2 consumer 要进行服务发现 根据服务名称发现 url 地址
   (1)服务发现
   (2)监听 watcher
-  (3)负载均衡算法 随机
+  (3)负载均衡算法 随机 获取 url
+  
+3 获取到url 地址后,然后呢
+
+  127.0.0.1:8080
+  To service: serviceSocket(8080);等待客户端的连接
+  To client: Socket(127.0.0.1:8080);连接服务器,开始进行通信
+  通信:传输数据给服务端 data
+  data: 告诉服务端我调用的类名,方法名,参数,参数类型 class RpcRequest implement----Binary
+  
+  Binary ---->反序列化----> RPCRequest---> 调用服务端实现方法[反射的方式]
+
+  Socket 通信就很好, Netty 高性能的通信框架  zk,netty:NIO
+  dubbo 通信 netty
+  
+4 To server
+  监听对应的端口,等待客户端的连接,

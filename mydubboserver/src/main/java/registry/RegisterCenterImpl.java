@@ -47,7 +47,8 @@ public class RegisterCenterImpl implements IRegisterCenter {
             e.printStackTrace();
         } finally {
             //关闭curator 工厂
-            curatorFramework.close();
+            //这里不应该关闭工厂 需要一直保持连接
+            //curatorFramework.close();
         }
     }
 }
