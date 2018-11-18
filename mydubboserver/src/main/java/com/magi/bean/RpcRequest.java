@@ -3,6 +3,7 @@ package com.magi.bean;
 import java.io.Serializable;
 
 /**
+ * 首先Java需要序列化的对象，需要实现java.io.Serializable接口.
  * @author magi
  */
 public class RpcRequest implements Serializable {

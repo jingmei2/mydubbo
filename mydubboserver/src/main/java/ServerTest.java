@@ -10,11 +10,15 @@ public class ServerTest {
         IMjHello iMjHello = new MjHelloImpl();
         //把服务注册到注册中心上
         IRegisterCenter registerCenter = new RegisterCenterImpl();
+
         //registerCenter.register("com.magi.IMjHello","127.0.0.1");
         //写法 注解方式 也就是根据子类可以得到接口的名称
 
+
         //绑定---->把接口的子类对象进行绑定 RPCService
-        RpcService rpcService = new RpcService();
+        RpcService rpcService = new RpcService(registerCenter,"127.0.0.1:8080");
+        rpcService.bind(iMjHello,iMjHello);
+        rpcService.publisher();
 
         //注册服务
         //

@@ -34,4 +34,10 @@ dubbo:RPC 的一种
   dubbo 通信 netty
   
 4 To server
-  监听对应的端口,等待客户端的连接,
+  监听对应的端口,等待客户端的连接, Netty
+  new RepServerHandler() 具体的业务交互代码还没有写 client
+  
+5 To client
+  url---->需要远程调用----> mian Netty---->对客户端而言是无感知,使用 java 的动态代理 返回数据
+  客户端也要维护服务店定义的 api 接口,用 maven 依赖的形式
+  
