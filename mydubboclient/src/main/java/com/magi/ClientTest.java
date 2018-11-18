@@ -18,6 +18,6 @@ public class ClientTest {
         IServiceDiscovery iServiceDiscovery = new ServiceDiscovery();
         RpcClientProxy rpcClientProxy = new RpcClientProxy(iServiceDiscovery);
         IMjHello iMjHello = rpcClientProxy.create(IMjHello.class);
-        System.out.println(iMjHello.sayHello("Majing"));
+//        System.out.println(iMjHello.sayHello("Majing"));
     }
 }

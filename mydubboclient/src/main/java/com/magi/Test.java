@@ -10,7 +10,7 @@ public class Test {
     public static void main(String[] args) throws IOException {
         // 127.0.0.1:8080/8081/8082
         IServiceDiscovery serviceDiscovery = new ServiceDiscovery();
-        System.out.println(serviceDiscovery.discovery("com.magi.Abc"));
+        System.out.println(serviceDiscovery.discovery("com.magi.api.IMjHello"));
         System.in.read();
     }
 }

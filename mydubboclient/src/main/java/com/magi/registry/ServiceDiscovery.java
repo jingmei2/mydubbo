@@ -12,6 +12,9 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author magi
+ */
 public class ServiceDiscovery implements IServiceDiscovery {
 
     List<String> repos = new ArrayList<>();

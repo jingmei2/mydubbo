@@ -26,6 +26,7 @@ import java.lang.reflect.Proxy;
  * @Version 1.0
  **/
 public class RpcClientProxy {
+
     private IServiceDiscovery serviceDiscovery;
 
 
@@ -88,7 +89,7 @@ public class RpcClientProxy {
                             });
 
                     //连接服务地址
-                    ChannelFuture future = bootstrap.connect(host,port).sync()
+                    ChannelFuture future = bootstrap.connect(host,port).sync();
                     //将封装好的 request 对象写过去 就想 Socket out.write(request);
                     future.channel().writeAndFlush(request);
                     future.channel().closeFuture().sync();
@@ -97,8 +98,8 @@ public class RpcClientProxy {
                 } finally {
                     group.shutdownGracefully();
                 }
-
-                return null;
+                //服务端写过来的数据
+                return rpcProxyHandler.getResponse();
             }
         });
     }

@@ -2,9 +2,7 @@ package com.magi.rpc;
 
 import com.magi.annotation.RpcAnnotation;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -41,7 +39,7 @@ public class RpcService {
      * 把服务名称和子类对象一一对应
      * @param services
      */
-    public void bind(Object... services) {
+    public void  bind(Object... services) {
         for (Object service :services){
             //得到服务名称
             RpcAnnotation rpcAnnotation = service.getClass().getAnnotation(RpcAnnotation.class);
@@ -70,6 +68,10 @@ public class RpcService {
 
             //加载Initializer
             ServerBootstrap serverBootstrap = new ServerBootstrap();
+            //这一步是必须的，如果没有设置group将会报java.lang.IllegalStateException: group not set异常
+            serverBootstrap = serverBootstrap.group(bossGroup, workerGroup);
+            //serverBootstrap.group(bossGroup, workerGroup);
+
             //装载 Socket
             serverBootstrap.channel(NioServerSocketChannel.class);
             serverBootstrap.childHandler(
@@ -87,11 +89,22 @@ public class RpcService {
                                 ClassResolvers.cacheDisabled(null)));
 
                         //自定义的 Handler Netty 用到最后,就是写一个个 Handler 就像SpringMVC Handler 读写
-                        channelPipeline.addLast(new RpcServerHandler());
+                        channelPipeline.addLast(new RpcServerHandler(handleMap));
                     }
-                }
+                    //* option()是提供给NioServerSocketChannel用来接收进来的连接。
+                    //* childOption()是提供给由父管道ServerChannel接收到的连接，
+                    //* 在这个例子中也是NioServerSocketChannel。
+                }).option(ChannelOption.SO_BACKLOG,128).childOption(ChannelOption.SO_KEEPALIVE,true);
+            //通过 netty 进行监听 8080
+            String[] addrs = serviceAddress.split(":");
+            String ip = addrs[0];
+            int port = Integer.parseInt(addrs[1]);
+            //绑定端口并启动去接收进来的连接
+            ChannelFuture future = serverBootstrap.bind(ip,port).sync();
+            System.out.println("netty 服务端启动成功,等待客户端的链接:");
+            //这里会一直等待，直到socket被关闭
+            future.channel().closeFuture().sync();
 
-            );
         } catch (Exception e){
             e.printStackTrace();
         }
