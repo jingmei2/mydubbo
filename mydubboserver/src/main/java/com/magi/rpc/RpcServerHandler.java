@@ -4,7 +4,10 @@ import com.magi.bean.RpcRequest;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import registry.IRegisterCenter;
+import registry.RegisterCenterImpl;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,5 +56,59 @@ public class RpcServerHandler extends ChannelInboundHandlerAdapter {
          ctx.flush();
          ctx.close();
         //super.channelRead(ctx, msg);
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        System.out.println(maximumSwap(931604));
+    }
+
+    public static int maximumSwap(int num) {
+        // Write your code here
+
+        // Write your code here
+        //先将整数转成字符数组，方便取出所有数字
+        String str = String.valueOf(num);
+        char[] array = str.toCharArray();
+        char max = 0;
+        char second = 0;
+        int len = array.length;
+        //先循环得到最大的数字,和第二大的数字
+        for (int i = 0; i < len; i++) {
+            char temp = 0;
+            if (max<array[i]){
+                temp = max;
+                max = array[i];
+                second = temp;
+            }
+            second = temp;
+
+
+        }
+        //如果第一个最高位已经是最大的了，那就要交换第二大的数字
+        //指向最大的数字的位置
+        int pos = 0;
+        //最大的数在第一个还是第二个的标识
+        int flag = 0;
+
+        char temp = max;
+        if (max==array[0]&&len>1){
+            temp = second;
+            flag = 1;
+        }
+        //然后循环出最大的数字的位置
+        for (int i = flag; i < len; i++) {
+            if (temp == array[i]){
+                pos = i;
+                break;
+            }
+        }
+        //位置所在数字 和第一个数进行交换 或者和第二个数进行交换
+        char tempNum = array[flag];
+        array[flag] = array[pos];
+        array[pos] = tempNum;
+
+        return Integer.parseInt(String.valueOf(array));
+
     }
 }

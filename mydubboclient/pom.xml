@@ -42,7 +42,6 @@
           <artifactId>netty-all</artifactId>
         </exclusion>
       </exclusions>
-
     </dependency>
     <!--curator-->
     <dependency>
