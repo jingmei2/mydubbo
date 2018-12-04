@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * @author magi
  */
-public class ServiceDiscovery implements IServiceDiscovery {
+public class ServiceDiscoveryImpl implements IServiceDiscovery {
 
     List<String> repos = new ArrayList<>();
 
     private CuratorFramework curatorFramework;
 
-    public ServiceDiscovery(){
+    public ServiceDiscoveryImpl(){
         //构造函数
         //根据 zookeeper 中的字符串初始化curatorFramework
         curatorFramework = CuratorFrameworkFactory.builder()

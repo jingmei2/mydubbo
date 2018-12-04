@@ -3,7 +3,7 @@ package com.magi;
 import com.magi.api.IMjHello;
 import com.magi.proxy.RpcClientProxy;
 import com.magi.registry.IServiceDiscovery;
-import com.magi.registry.ServiceDiscovery;
+import com.magi.registry.ServiceDiscoveryImpl;
 
 /**
  * @author magi
@@ -15,9 +15,9 @@ public class ClientTest {
         //发起远程调用
         //远程调用 动态代理类
         //url 服务发现
-        IServiceDiscovery iServiceDiscovery = new ServiceDiscovery();
+        IServiceDiscovery iServiceDiscovery = new ServiceDiscoveryImpl();
         RpcClientProxy rpcClientProxy = new RpcClientProxy(iServiceDiscovery);
         IMjHello iMjHello = rpcClientProxy.create(IMjHello.class);
-//        System.out.println(iMjHello.sayHello("Majing"));
+        System.out.println(iMjHello.sayHello("Majing"));
     }
 }

@@ -1,7 +1,9 @@
 package com.magi.proxy;
 
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelPipeline;
 
 /**
  * @ClassName RpcProxyHandler

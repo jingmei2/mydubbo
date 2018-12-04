@@ -83,14 +83,15 @@ public class RpcClientProxy {
                                     channelPipeline.addLast("encoder",new ObjectEncoder());
                                     channelPipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE,
                                             ClassResolvers.cacheDisabled(null)));
-                                    //使用 netty 写到最后就是写 Handler 的代码
+                                    //使用 netty 写到最后就是写 Handler 的代码 服务端交互的 handle
                                     channelPipeline.addLast(rpcProxyHandler);
                                 }
                             });
 
                     //连接服务地址
                     ChannelFuture future = bootstrap.connect(host,port).sync();
-                    //将封装好的 request 对象写过去 就想 Socket out.write(request);
+                    //将封装好的 request 对象写过去 就像 Socket out.write(request);
+                    //从服务端读到
                     future.channel().writeAndFlush(request);
                     future.channel().closeFuture().sync();
                 } catch (Exception e){

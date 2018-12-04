@@ -1,5 +1,8 @@
 package registry;
 
+/**
+ * @author magi
+ */
 public interface IRegisterCenter {
 
     /**

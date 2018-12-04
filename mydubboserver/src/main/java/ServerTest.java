@@ -16,8 +16,8 @@ public class ServerTest {
 
 
         //绑定---->把接口的子类对象进行绑定 RPCService
-        RpcService rpcService = new RpcService(registerCenter,"127.0.0.1:8090");
-        rpcService.bind(iMjHello,iMjHello);
+        RpcService rpcService = new RpcService(registerCenter,"127.0.0.1:8080");
+        rpcService.bind(iMjHello);
         rpcService.publisher();
 
         //注册服务
