@@ -15,6 +15,6 @@ public class RandomLoadBalance implements LoadBalance {
     public String select(List<String> repos) {
         int len = repos.size();
         Random random = new Random();
-        return repos.get(random.nextInt(len));
+        return len!=0?repos.get(random.nextInt(len)):"error";
     }
 }

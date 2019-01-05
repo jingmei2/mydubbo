@@ -34,18 +34,20 @@ public class RpcClientProxy {
         this.serviceDiscovery = serviceDiscovery;
     }
 
+
+
     //动态代理的代码
     public  <T> T create(final Class<T> interfaceClass){
         return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[]{interfaceClass}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-                //服务发现 url
-                String serviceName = interfaceClass.getName();
-                String serviceAddress = serviceDiscovery.discovery(serviceName);
-                String[] arrs = serviceAddress.split(":");
-                String host = arrs[0];
-                int port = Integer.parseInt(arrs[1]);
+            //服务发现 url
+            String serviceName = interfaceClass.getName();
+            String serviceAddress = serviceDiscovery.discovery(serviceName);
+            String[] arrs = serviceAddress.split(":");
+            String host = arrs[0];
+            int port = Integer.parseInt(arrs[1]);
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable{
 
                 //url Netty 请求 需要把要调用的内容
                 //封装 RPCRequest
@@ -55,6 +57,7 @@ public class RpcClientProxy {
                 request.setTypes(method.getParameterTypes());
                 request.setParams(args);
 
+                //
                 final  RpcProxyHandler rpcProxyHandler = new RpcProxyHandler();
 
                 //发起 Socket 改成了Netty

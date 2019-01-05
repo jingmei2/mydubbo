@@ -17,6 +17,7 @@ public class ClientTest {
         //url 服务发现
         IServiceDiscovery iServiceDiscovery = new ServiceDiscoveryImpl();
         RpcClientProxy rpcClientProxy = new RpcClientProxy(iServiceDiscovery);
+        String name = IMjHello.class.getName();
         IMjHello iMjHello = rpcClientProxy.create(IMjHello.class);
         System.out.println(iMjHello.sayHello("Majing"));
     }

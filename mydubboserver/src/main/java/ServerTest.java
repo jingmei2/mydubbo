@@ -11,7 +11,7 @@ public class ServerTest {
         //把服务注册到注册中心上
         IRegisterCenter registerCenter = new RegisterCenterImpl();
 
-        //registerCenter.register("com.magi.IMjHello","127.0.0.1");
+        //registerCenter.register("com.magi.api.IMjHello","127.0.0.1");
         //写法 注解方式 也就是根据子类可以得到接口的名称
 
 
